@@ -35,7 +35,6 @@ export default function Dashboard() {
     <div className="mx-auto w-full max-w-3xl px-4 pb-28 pt-4">
       <header className="mb-4 flex items-center justify-between">
         <div>
-          {/* Vercel-Sync-Test 2026-07-21 */}
           <h1 className="font-display text-3xl uppercase tracking-wide">Norrfångst</h1>
           <p className="text-sm text-mist-500">{trip?.location ?? '…'}</p>
         </div>
