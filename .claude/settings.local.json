@@ -13,7 +13,11 @@
       "Bash(xcrun simctl *)",
       "Bash(cd \"/Users/maurice/Library/Mobile Documents/com~apple~CloudDocs/Claude Apps/Schweden\" && echo \"=== Sicherheitscheck: was ist im nested Schweden VOR dem Move? ===\" && ls -la Schweden/ && echo \"\" && echo \"=== Move .git und .gitattributes hoch ins echte Root ===\" && mv Schweden/.git .git && mv Schweden/.gitattributes .gitattributes && echo \"verschoben.\" && echo \"\" && echo \"=== Ist der nested Ordner jetzt leer? ===\" && ls -la Schweden/ && echo \"\" && echo \"=== leeren Ordner löschen ===\" && rmdir Schweden && echo \"gelöscht.\" && echo \"\" && echo \"=== Root jetzt: ===\" && ls -la | grep -E \"Schweden|\\\\.git\")",
       "Bash(git add *)",
-      "Bash(grep -E \"\\\\.env$|node_modules|/dist/|^dist/|\\\\.DS_Store\")"
+      "Bash(grep -E \"\\\\.env$|node_modules|/dist/|^dist/|\\\\.DS_Store\")",
+      "Bash(git commit -m 'Add Norrfångst PWA project files *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(git credential *)"
     ]
   }
 }
