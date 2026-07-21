@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@font-face {
+  font-family: "Norrfangst Display";
+  src: url("./assets/fonts/staatliches.woff2") format("woff2");
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@theme {
+  /* Nachtwald-Palette */
+  --color-night-950: #070d0b;
+  --color-night-900: #0b1512;
+  --color-night-800: #10201a;
+  --color-night-700: #16281f;
+  --color-night-600: #1e3427;
+  --color-pine-500: #2c6e4f;
+  --color-pine-400: #3fae72;
+  --color-pine-300: #6fd39c;
+  --color-lake-500: #2b5876;
+  --color-lake-400: #4e7fa5;
+  --color-lake-300: #7fb0d4;
+  --color-wood-500: #8a6240;
+  --color-wood-400: #c89b6c;
+  --color-wood-300: #e0bf97;
+  --color-fire-500: #ff7a29;
+  --color-fire-400: #ff9b52;
+  --color-paper-100: #e8e4d8;
+  --color-paper-300: #c9c4b4;
+  --color-mist-500: #9aa69b;
+
+  --font-display: "Norrfangst Display", "Avenir Next Condensed", "Arial Narrow", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radius-card: 1.1rem;
+}
+
+html, body {
+  background: var(--color-night-900);
+  color: var(--color-paper-100);
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(43, 88, 118, 0.16) 0%, transparent 60%),
+    radial-gradient(90% 50% at 80% 100%, rgba(255, 122, 41, 0.05) 0%, transparent 55%),
+    var(--color-night-900);
+  min-height: 100dvh;
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+  }
+  /* Kartenkachel mit dezenter Holz-/Papiertextur */
+  .card {
+    border-radius: var(--radius-card);
+    background:
+      repeating-linear-gradient(96deg, rgba(200, 155, 108, 0.025) 0 2px, transparent 2px 9px),
+      linear-gradient(160deg, rgba(255, 255, 255, 0.045) 0%, transparent 45%),
+      var(--color-night-800);
+    border: 1px solid rgba(200, 155, 108, 0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+  .card-inset {
+    border-radius: 0.8rem;
+    background: rgba(7, 13, 11, 0.55);
+    border: 1px solid rgba(232, 228, 216, 0.06);
+  }
+  .btn-fire {
+    background: linear-gradient(160deg, var(--color-fire-400), var(--color-fire-500));
+    color: #1c0d02;
+    font-weight: 700;
+    border-radius: 0.9rem;
+    box-shadow: 0 6px 18px rgba(255, 122, 41, 0.3);
+  }
+  .btn-ghost {
+    background: rgba(232, 228, 216, 0.07);
+    border: 1px solid rgba(232, 228, 216, 0.12);
+    border-radius: 0.9rem;
+    color: var(--color-paper-100);
+  }
+  .input-dark {
+    background: rgba(7, 13, 11, 0.6);
+    border: 1px solid rgba(232, 228, 216, 0.14);
+    border-radius: 0.8rem;
+    color: var(--color-paper-100);
+    padding: 0.65rem 0.9rem;
+    width: 100%;
+    outline: none;
+  }
+  .input-dark:focus { border-color: var(--color-pine-400); }
+  .input-dark::placeholder { color: var(--color-mist-500); }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.72rem;
+    background: rgba(232, 228, 216, 0.08);
+    border: 1px solid rgba(232, 228, 216, 0.1);
+    color: var(--color-paper-300);
+  }
+}
+
+/* Kartenhöhe mit Fallback (dvh wird nicht überall unterstützt) */
+.map-canvas { height: 58vh; }
+@supports (height: 1dvh) {
+  .map-canvas { height: 58dvh; }
+}
+
+/* Leaflet dunkel einpassen */
+.leaflet-container { background: var(--color-night-950); font: inherit; }
+.leaflet-control-attribution {
+  background: rgba(7, 13, 11, 0.7) !important;
+  color: var(--color-mist-500) !important;
+  font-size: 9px !important;
+}
+.leaflet-control-attribution a { color: var(--color-lake-300) !important; }
+.spot-marker { background: transparent; border: none; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(232, 228, 216, 0.12); border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }

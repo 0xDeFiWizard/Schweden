@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Zugriffsmodell: Wer angemeldet ist (Anonymous Auth) UND den Trip-Code kennt
+    // (= die tripId), darf den Trip nutzen. Der Code ist das geteilte Geheimnis –
+    // passend für eine private Freundes-App. Ownership-Regeln schützen Profile
+    // und Fänge einzelner Nutzer.
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    match /trips/{tripId} {
+      allow read, create, update: if signedIn();
+      allow delete: if false;
+
+      // Profil: nur der Besitzer legt an/ändert. delete auch durch andere
+      // erlaubt (Feature „Profil übernehmen" bei Handy-Wechsel).
+      match /members/{userId} {
+        allow read: if signedIn();
+        allow create, update: if signedIn() && request.auth.uid == userId;
+        allow delete: if signedIn();
+      }
+
+      // Fänge: anlegen nur unter eigener userId; ändern nur eigene –
+      // Ausnahme: Emoji-Reaktionen dürfen alle setzen.
+      match /catches/{catchId} {
+        allow read: if signedIn();
+        allow create: if signedIn() && request.resource.data.userId == request.auth.uid;
+        allow update: if signedIn() &&
+          (resource.data.userId == request.auth.uid ||
+           request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions']));
+        allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+      }
+
+      // Geteilte Orga-Daten (inkl. Seed beim ersten Beitritt)
+      match /{coll}/{docId} {
+        allow read, create, update, delete: if signedIn() &&
+          coll in ['tasks', 'packing', 'shopping', 'expenses', 'spots', 'schedule', 'chat', 'meta'];
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(node scripts/make-icons.mjs)",
+      "Bash(mkdir -p src/assets/fonts)",
+      "Bash(curl -s -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0 Safari/537.36\" \"https://fonts.googleapis.com/css2?family=Staatliches&display=swap\")",
+      "Bash(curl -s -o src/assets/fonts/staatliches.woff2 \"https://fonts.gstatic.com/s/staatliches/v15/HI_OiY8KO6hCsQSoAPmtMYeVvpCfOMPTjMY.woff2\")",
+      "Bash(npm run *)",
+      "Bash(npx -y firebase-tools --version)",
+      "Bash(npx -y firebase-tools login:list)",
+      "Bash(xcrun simctl *)",
+      "Bash(cd \"/Users/maurice/Library/Mobile Documents/com~apple~CloudDocs/Claude Apps/Schweden\" && echo \"=== Sicherheitscheck: was ist im nested Schweden VOR dem Move? ===\" && ls -la Schweden/ && echo \"\" && echo \"=== Move .git und .gitattributes hoch ins echte Root ===\" && mv Schweden/.git .git && mv Schweden/.gitattributes .gitattributes && echo \"verschoben.\" && echo \"\" && echo \"=== Ist der nested Ordner jetzt leer? ===\" && ls -la Schweden/ && echo \"\" && echo \"=== leeren Ordner löschen ===\" && rmdir Schweden && echo \"gelöscht.\" && echo \"\" && echo \"=== Root jetzt: ===\" && ls -la | grep -E \"Schweden|\\\\.git\")",
+      "Bash(git add *)",
+      "Bash(grep -E \"\\\\.env$|node_modules|/dist/|^dist/|\\\\.DS_Store\")"
+    ]
+  }
+}
