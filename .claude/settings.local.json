@@ -17,7 +17,23 @@
       "Bash(git commit -m 'Add Norrfångst PWA project files *)",
       "Bash(git push *)",
       "Bash(gh auth *)",
-      "Bash(git credential *)"
+      "Bash(git credential *)",
+      "Bash(git ls-remote *)",
+      "Bash(git fetch *)",
+      "Bash(git ls-tree *)",
+      "Bash(grep -E \"^\\\\.env$\")",
+      "Bash(git commit -m 'Test: Vercel-Sync prüfen *)",
+      "Bash(brew install *)",
+      "Bash(pdfinfo \"Tiefenkarte_Ryssbysjön.pdf\")",
+      "Bash(pdfimages -list \"Tiefenkarte_Ryssbysjön.pdf\")",
+      "Bash(sips -g pixelWidth -g pixelHeight __TRACKED_VAR__/hires-1.png)",
+      "Bash(cwebp -q 78 -m 6 -sharp_yuv hires-1.png -o ov78.webp)",
+      "Bash(python3 -c ' *)",
+      "Bash(grep -E \"\\\\.env$|\\\\.env\\\\.|node_modules|/dist/|\\\\.vercel|\\\\.DS_Store\")",
+      "Bash(git reset *)",
+      "Bash(rm -f vite.config.js.timestamp-*.mjs)",
+      "Bash(printf '\\\\nvite.config.js.timestamp-*.mjs\\\\n')",
+      "Bash(git commit -m 'Add Tiefenkarte screen + Jeder-selbst option *)"
     ]
   }
 }

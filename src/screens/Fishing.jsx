@@ -57,6 +57,16 @@ export default function Fishing() {
         </p>
       </Card>
 
+      <Link to="/depthmap">
+        <Card className="mt-3 flex items-center gap-3">
+          <span className="text-3xl">🌊</span>
+          <div className="min-w-0 flex-1">
+            <p className="font-display">Tiefenkarte ansehen →</p>
+            <p className="text-xs text-mist-500">Struktur & Tiefen des Ryssbysjön (Vermessung 1937)</p>
+          </div>
+        </Card>
+      </Link>
+
       <SectionTitle>Heute am Wasser</SectionTitle>
       <div className="grid grid-cols-2 gap-3">
         <Link to="/biteindex">

@@ -3,6 +3,7 @@ import { useTrip } from '../data/TripContext'
 import { Screen, Card, SectionTitle, Sheet, Field, Fab, Chip } from '../components/ui'
 import Avatar from '../components/Avatar'
 import { fmtEUR } from '../lib/format'
+import { EVERYONE } from './Packing'
 
 export default function Shopping() {
   const { shopping, members, memberById, set, add, del, uid } = useTrip()
@@ -14,12 +15,13 @@ export default function Shopping() {
   const estOpen = open.reduce((a, s) => a + (Number(s.estimatedCost) || 0), 0)
   const categories = [...new Set(shopping.map((s) => s.category))]
 
-  // Kauf abschließen: automatisch als Ausgabe ins Budget (Kategorie je nach Artikel)
+  // Kauf abschließen: automatisch als Ausgabe ins Budget (Kategorie je nach Artikel).
+  // Ausnahme: „Jeder selbst" → jeder zahlt seins, kein gemeinsamer Budget-Eintrag.
   async function markBought(item) {
     const payerId = item.claimedBy ?? uid
     const cost = Number(item.estimatedCost) || 0
     const patch = { bought: true }
-    if (cost > 0 && !item.expenseId) {
+    if (cost > 0 && !item.expenseId && item.claimedBy !== EVERYONE) {
       const category = /bier|schnaps|spirituos|alkohol|wein/i.test(item.name) ? 'Alkohol' : 'Essen'
       const expenseId = await addExpense(item, payerId, cost, category)
       patch.expenseId = expenseId
@@ -60,7 +62,12 @@ export default function Shopping() {
                     </p>
                     <p className="text-xs text-mist-500">{s.estimatedCost ? `~ ${fmtEUR(s.estimatedCost)}` : 'Preis offen'}</p>
                   </div>
-                  {s.claimedBy ? (
+                  {s.claimedBy === EVERYONE ? (
+                    <button onClick={() => set('shopping', s.id, { claimedBy: null })} className="flex items-center gap-1.5" title="Jeder bringt sein eigenes mit">
+                      <span className="text-base">🙋</span>
+                      <span className="text-xs text-paper-300">Jeder selbst</span>
+                    </button>
+                  ) : s.claimedBy ? (
                     <button onClick={() => set('shopping', s.id, { claimedBy: null })} className="flex items-center gap-1.5">
                       <Avatar member={memberById[s.claimedBy]} size={24} />
                       <span className="text-xs text-paper-300">{memberById[s.claimedBy]?.displayName}</span>
@@ -161,6 +168,7 @@ function ShoppingSheet({ open, initial, members, onClose, onSave }) {
       <Field label="Wer übernimmt?">
         <select className="input-dark" value={claimedBy} onChange={(e) => setClaimedBy(e.target.value)}>
           <option value="">noch niemand</option>
+          <option value={EVERYONE}>🙋 Jeder selbst (jeder bringt sein eigenes mit)</option>
           {members.map((m) => (
             <option key={m.id} value={m.id}>{m.displayName}</option>
           ))}

@@ -19,6 +19,7 @@ import Lexicon from './screens/Lexicon'
 import More from './screens/More'
 import Weather from './screens/Weather'
 import BiteIndex from './screens/BiteIndex'
+import DepthMap from './screens/DepthMap'
 
 export default function App() {
   const { ready, tripId, mode, online } = useTrip()
@@ -57,6 +58,7 @@ export default function App() {
         <Route path="/lexicon" element={<Lexicon />} />
         <Route path="/weather" element={<Weather />} />
         <Route path="/biteindex" element={<BiteIndex />} />
+        <Route path="/depthmap" element={<DepthMap />} />
         <Route path="*" element={<Dashboard />} />
       </Routes>
       <Nav />

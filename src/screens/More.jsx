@@ -10,6 +10,7 @@ const MODULES = [
   { to: '/weather', icon: '🌤️', label: 'Wetter' },
   { to: '/biteindex', icon: '🎯', label: 'Beißindex' },
   { to: '/fishing', icon: '🎣', label: 'Angel-Modul' },
+  { to: '/depthmap', icon: '🌊', label: 'Tiefenkarte' },
   { to: '/team', icon: '🏆', label: 'Team & Ranking' },
   { to: '/planner', icon: '📅', label: 'Tagesplaner' },
   { to: '/packing', icon: '🎒', label: 'Packliste' },

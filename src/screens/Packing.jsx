@@ -6,6 +6,9 @@ import Avatar from '../components/Avatar'
 const CATEGORIES = ['Angeln', 'Grillen', 'Party', 'Kleidung']
 const CAT_ICON = { Angeln: '🎣', Grillen: '🍖', Party: '🍻', Kleidung: '🧥' }
 
+// Sentinel: „jeder bringt sein eigenes mit" (z. B. eigene Angelsachen)
+export const EVERYONE = 'everyone'
+
 export default function Packing() {
   const { packing, members, memberById, set, add, del, uid } = useTrip()
   const [sheetOpen, setSheetOpen] = useState(false)
@@ -61,11 +64,16 @@ export default function Packing() {
                     onChange={(e) => set('packing', p.id, { assignedTo: e.target.value || null })}
                   >
                     <option value="">niemand ⚠️</option>
+                    <option value={EVERYONE}>🙋 Jeder selbst</option>
                     {members.map((m) => (
                       <option key={m.id} value={m.id}>{m.displayName}</option>
                     ))}
                   </select>
-                  {p.assignedTo && <Avatar member={memberById[p.assignedTo]} size={24} />}
+                  {p.assignedTo === EVERYONE ? (
+                    <span className="shrink-0 text-base" title="Jeder bringt sein eigenes mit">🙋</span>
+                  ) : p.assignedTo ? (
+                    <Avatar member={memberById[p.assignedTo]} size={24} />
+                  ) : null}
                   <button onClick={() => { setEditItem(p); setSheetOpen(true) }} className="text-xs text-mist-500/60 hover:text-paper-100" aria-label="Bearbeiten">✏️</button>
                   <button onClick={() => del('packing', p.id)} className="text-xs text-mist-500/60 hover:text-red-400">✕</button>
                 </div>
@@ -122,6 +130,7 @@ function ItemSheet({ open, initial, members, onClose, onSave }) {
       <Field label="Bringt mit">
         <select className="input-dark" value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}>
           <option value="">niemand ⚠️</option>
+          <option value={EVERYONE}>🙋 Jeder selbst (jeder bringt sein eigenes mit)</option>
           {members.map((m) => (
             <option key={m.id} value={m.id}>{m.displayName}</option>
           ))}
